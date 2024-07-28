@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    environment {
+        IMAGE_NAME = 'vikobi/tiktok-clone'
+        IMAGE_TAG = '1.0'
+    }
+    stages { 
+        stage('build image') {
+            steps {
+                echo 'building the docker image'
+                sh "docker build -t $IMAGE_NAME:$IMAGE_TAG ."
+                
+            }
+        }
+        stage('docker login') {
+            steps {
+                echo 'login and push docker image to repo'
+                withcredentials([usernamePassword(credentialsId: 'Dockerhub_PAT', passwordvariable: 'PASS', username: 'USER')])
+                sh "echo $PASS | docker login -u $USER --password-stdin"
+                sh "docker push $IMAGE_NAME:$IMAGE_TAG"
+
+            }
+        }
+    }
+    post {
+        always {
+            sh 'docker logout'
+        }
+    }
+}
