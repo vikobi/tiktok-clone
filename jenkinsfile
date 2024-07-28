@@ -3,6 +3,7 @@ pipeline {
     environment {
         IMAGE_NAME = 'vikobi/tiktok-clone'
         IMAGE_TAG = '1.0'
+        DOCKER_CREDENTIALS = credentials('Dockerhub_PAT')
     }
     stages { 
         stage('build image') {
@@ -15,8 +16,7 @@ pipeline {
         stage('docker login') {
             steps {
                 echo 'login and push docker image to repo'
-                withcredentials([usernamePassword(credentialsId: 'Dockerhub_PAT', passwordvariable: 'PASS', username: 'USER')])
-                sh "echo $PASS | docker login -u $USER --password-stdin"
+                echo 'sh $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin'
                 sh "docker push $IMAGE_NAME:$IMAGE_TAG"
 
             }
