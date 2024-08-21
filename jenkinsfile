@@ -16,8 +16,8 @@ pipeline {
         stage('docker login') {
             steps {
                 echo 'login and push docker image to repo'
-                echo 'sh $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin'
-                sh "docker push $IMAGE_NAME:$IMAGE_TAG"
+                sh 'echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin'
+                sh 'docker push $IMAGE_NAME:$IMAGE_TAG'
 
             }
         }
