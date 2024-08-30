@@ -3,7 +3,7 @@ pipeline {
     environment {
         IMAGE_NAME = 'vikobi/tiktok-clone'
         IMAGE_TAG = '1.0'
-        DOCKER_CREDENTIALS = credentials('Dockerhub_PAT')
+        DOCKER_CREDENTIALS = credentials('Docker_PAT')
     }
     stages { 
         stage('build image') {
