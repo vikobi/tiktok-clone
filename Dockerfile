@@ -1,4 +1,4 @@
-FROM node:lts-bookworm-slim
+FROM node:lts-slim
 
 WORKDIR /app
 
@@ -6,8 +6,8 @@ COPY . .
 
 RUN npm install -g npm@10.8.1
 
-RUN npm run build
+COPY . .
 
 EXPOSE 3000
 
-CMD [ "npm", "run", "start" ]
+CMD ["npm", "run", "start"]
